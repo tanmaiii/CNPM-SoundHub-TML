@@ -25,7 +25,6 @@ User.create = (newUser, result) => {
   });
 };
 
-
 //kiểm tra email đã được dùng chưa
 User.findByEmail = (email, result) => {
   db.query(`SELECT * from users WHERE email = ?`, email, (err, res) => {
@@ -39,6 +38,25 @@ User.findByEmail = (email, result) => {
     }
     result(null, null);
   });
+};
+
+User.verify = function (email, result) {
+  db.query(
+    `UPDATE users SET email_verified_at = ? WHERE email = ?`,
+    [new Date(), email],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+      if (res.affectedRows == 0) {
+        result({ kind: "not_found" }, null);
+        return;
+      }
+      result(null, { email: email });
+    }
+  );
 };
 
 export default User;

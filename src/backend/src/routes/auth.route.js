@@ -5,5 +5,14 @@ import authValidation from "../validations/auth.validation.js";
 import validate from "../middlewares/validate.js";
 
 router.post("/signup", validate(authValidation.signup), authController.signup);
-
+router.post(
+  "/send-verify-account",
+  validate(authValidation.sendVerifyAccount),
+  authController.sendVerifyAccount
+);
+router.post(
+  "/verify-account",
+  validate(authValidation.verifyAccount),
+  authController.verifyAccount
+);
 export default router;
