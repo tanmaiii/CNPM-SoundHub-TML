@@ -32,4 +32,15 @@ export default class authValidation {
       }),
     }),
   };
+  static sendVerifyAccount = {
+    body: Joi.object().keys({
+      email: Joi.string().email().max(255).empty().required(),
+    }),
+  };
+  static verifyAccount = {
+    body: Joi.object().keys({
+      email: Joi.string().email().max(255).empty().required(),
+      code: Joi.number().required(),
+    }),
+  };
 }
