@@ -13,7 +13,7 @@ export default class authValidation {
       password: Joi.string()
         .min(6)
         .max(50)
-        .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{3,30}$/)
+        .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,30}$/)
         .required()
         .messages({
           "string.string": `Password must be a string!`,

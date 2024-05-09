@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: SPACING.space_8,
+    width: "100%"
   },
   textErr: {
     fontSize: FONTSIZE.size_16,

@@ -2,9 +2,8 @@ import { useState, forwardRef, useImperativeHandle } from "react";
 import { View, Text, StyleSheet, Modal } from "react-native";
 import Animated, { FadeInUp, FadeOutUp } from "react-native-reanimated";
 import { useToast } from "../../context/ToastContext";
-import { WINDOW_HEIGHT } from "@gorhom/bottom-sheet";
 import { BORDERRADIUS, COLORS, FONTFAMILY, FONTSIZE, SPACING } from "../../theme/theme";
-import { WINDOW_WIDTH } from "../../utils";
+import { WINDOW_HEIGHT, WINDOW_WIDTH } from "../../utils";
 
 type props = {
   timeout?: number;
