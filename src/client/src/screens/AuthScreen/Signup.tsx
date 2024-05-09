@@ -11,12 +11,12 @@ import {
   ActivityIndicator,
   ImageBackground,
   Platform,
+  TouchableHighlight,
+  TouchableOpacity
 } from "react-native";
 import IMAGES from "../../constants/images";
-import { COLORS, FONTFAMILY, FONTSIZE, SPACING } from "../../theme/theme";
-import { WINDOW_HEIGHT, WINDOW_WIDTH } from "../../utils";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { TouchableHighlight } from "@gorhom/bottom-sheet";
+import { BORDERRADIUS, COLORS, FONTFAMILY, FONTSIZE, SPACING } from "../../theme/theme";
+import { REGEX, WINDOW_HEIGHT, WINDOW_WIDTH } from "../../utils";
 import { useNavigation } from "@react-navigation/native";
 import styles from "./style";
 import { authApi } from "../../apis";
@@ -40,7 +40,6 @@ interface SignupScreenProps {}
 
 const SignupScreen = (props: SignupScreenProps) => {
   const navigation = useNavigation<NavigationProp>();
-//   const { setOpenBarSong } = usePlaying();
   const { setToastMessage } = useToast();
   const inputNameRef = React.useRef<TextInput>(null);
   const inputEmailRef = React.useRef<TextInput>(null);
@@ -65,9 +64,6 @@ const SignupScreen = (props: SignupScreenProps) => {
   const [email, setEmail] = React.useState<string>("");
   const [password, setPassword] = React.useState<string>("");
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,30}$/;
-
   React.useEffect(() => {
     const unsubscribe = navigation.addListener("beforeRemove", (e) => {
       if (verify) {
@@ -79,10 +75,6 @@ const SignupScreen = (props: SignupScreenProps) => {
     });
     return unsubscribe;
   }, [navigation]);
-
-  React.useEffect(() => {
-    // setOpenBarSong(false);
-  }, []);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -143,7 +135,7 @@ const SignupScreen = (props: SignupScreenProps) => {
   const validateEmail = (text: string) => {
     if (text.trim() === "") {
       setErrEmail("Email cannot be empty");
-    } else if (!emailRegex.test(text)) {
+    } else if (!REGEX.email.test(text)) {
       setErrEmail("Invalid email");
     }
   };
@@ -155,7 +147,7 @@ const SignupScreen = (props: SignupScreenProps) => {
       setErrPassword("Password must have at least 6 characters");
     } else if (text.trim().length > 30) {
       setErrPassword("Password must not exceed 30 characters");
-    } else if (!passwordRegex.test(text)) {
+    } else if (!REGEX.password.test(text)) {
       setErrPassword("At least one lowercase letter, uppercase letter, number, special character");
     }
   };
@@ -240,7 +232,11 @@ const SignupScreen = (props: SignupScreenProps) => {
 
                       {err && (
                         <View style={styles.boxErr}>
-                          <FontAwesomeIcon icon={faCircleExclamation} size={24} color={COLORS.White1} />
+                          <FontAwesomeIcon
+                            icon={faCircleExclamation}
+                            size={24}
+                            color={COLORS.White1}
+                          />
                           <Text style={styles.textErr}>{err}</Text>
                         </View>
                       )}
@@ -341,7 +337,15 @@ const SignupScreen = (props: SignupScreenProps) => {
                         </View>
                       </View>
 
-                      <Text style={styles.titleForgetPassword}>Forget Password ?</Text>
+                      <View
+                        style={[
+                          { alignItems: "flex-end", justifyContent: "flex-end", width: "100%" },
+                        ]}
+                      >
+                        <Pressable onPress={() => navigation.navigate("ForgetPassword")}>
+                          <Text style={styles.titleForgetPassword}>Forget Password ?</Text>
+                        </Pressable>
+                      </View>
 
                       <TouchableOpacity
                         disabled={loading}
@@ -354,7 +358,6 @@ const SignupScreen = (props: SignupScreenProps) => {
                           <Text style={styles.titleLogin}>Sign Up</Text>
                         )}
                       </TouchableOpacity>
-                      
 
                       <View style={styles.boxBottom}>
                         <Text
@@ -379,7 +382,6 @@ const SignupScreen = (props: SignupScreenProps) => {
                         </TouchableOpacity>
                       </View>
                     </View>
-
                   ) : (
                     <VerifyScreen
                       email={email && email}

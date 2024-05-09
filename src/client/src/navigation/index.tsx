@@ -3,13 +3,8 @@ import { View, StyleSheet, Text } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import {
-  faHouse,
-  faMagnifyingGlass,
-  faRecordVinyl,
-  faUser,
-} from "@fortawesome/free-solid-svg-icons";
-import { COLORS, FONTFAMILY, FONTSIZE, HEIGHT, SPACING } from "../theme/theme";
+
+import { COLORS, FONTFAMILY, HEIGHT, SPACING } from "../theme/theme";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import HomeScreen from "../screens/HomeScreen";
@@ -17,6 +12,7 @@ import WelcomeScreen from "../screens/AuthScreen/Welcome";
 import SignupScreen from "../screens/AuthScreen/Signup";
 
 import { RootStackParamList } from "./TStack";
+import { faHouse } from "@fortawesome/free-solid-svg-icons";
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 const Stack = createNativeStackNavigator<RootStackParamList>();

@@ -1,9 +1,8 @@
 import * as React from "react";
-import { Text, View, StyleSheet, ImageBackground, Image } from "react-native";
+import { Text, View, StyleSheet, ImageBackground, Image, TouchableOpacity } from "react-native";
 import { COLORS, FONTFAMILY, FONTSIZE, SPACING } from "../../theme/theme";
 import { IMAGES } from "../../constants";
 import styles from "./style";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { useNavigation } from "@react-navigation/native";
 import { NavigationProp } from "../../navigation/TStack";
 import { WINDOW_HEIGHT } from "../../utils";
@@ -11,7 +10,6 @@ import { WINDOW_HEIGHT } from "../../utils";
 interface WelcomeScreenProps {}
 
 const WelcomeScreen = (props: WelcomeScreenProps) => {
-
   const navigate = useNavigation<NavigationProp>();
 
   React.useEffect(() => {
