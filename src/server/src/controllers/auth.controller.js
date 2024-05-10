@@ -3,6 +3,7 @@ import VerifyCode from "../model/verifyCode.model.js";
 import bcrypt from "bcrypt";
 import randomstring from "randomstring";
 import emailService from "../services/emailService/index.js";
+import jwtService from "../services/jwtService.js";
 
 export const signup = async (req, res) => {
   try {
@@ -33,6 +34,58 @@ export const signup = async (req, res) => {
   } catch (error) {
     console.log(req?.body?.email);
     res.status(401).json(error);
+  }
+};
+
+export const signin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    User.findByEmail(email, (err, user) => {
+      if (err) return res.status(401).json({ conflictError: err });
+      if (!user) {
+        return res.status(401).json({ conflictError: "User not found !" });
+      }
+      if (user.email_verified_at === null) {
+        return res.status(401).json({ conflictError: "User is not authenticated!" });
+      }
+
+      bcrypt.compare(password, user.password, (err, result) => {
+        if (result == true) {
+          // trả về token
+          const token = jwtService.generateToken(
+            { id: user.id, is_admin: user.is_admin },
+            { expiresIn: "7d" }
+          );
+
+          const { password, ...others } = user;
+
+          const data = {
+            data: others,
+            token: token,
+          };
+
+          console.log("LOGIN", user);
+
+          res
+            .cookie("accessToken", token, {
+              httpOnly: true,
+              sameSite: "none",
+              secure: true,
+              expires: new Date(Date.now() + 900000),
+              maxAge: 24 * 60 * 60 * 1000,
+            })
+            .status(200)
+            .json(data);
+        } else {
+          const conflictError = "Wrong password !";
+          res.status(401).json({ conflictError });
+        }
+      });
+    });
+  } catch (error) {
+    const conflictError = "User credentials are not valid.";
+    res.status(401).json({ conflictError });
   }
 };
 
@@ -129,6 +182,7 @@ export const verifyAccount = async (req, res) => {
 
 export default {
   signup,
+  signin,
   sendVerifyAccount,
   verifyAccount,
 };

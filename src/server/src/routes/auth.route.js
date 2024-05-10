@@ -5,6 +5,7 @@ import authValidation from "../validations/auth.validation.js";
 import validate from "../middlewares/validate.js";
 
 router.post("/signup", validate(authValidation.signup), authController.signup);
+router.post("/signin", validate(authValidation.signin), authController.signin);
 router.post(
   "/send-verify-account",
   validate(authValidation.sendVerifyAccount),
