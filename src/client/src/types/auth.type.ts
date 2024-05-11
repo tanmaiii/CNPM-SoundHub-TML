@@ -9,3 +9,11 @@ export type ResLoginApi = {
   data: TUser;
   token: string;
 };
+
+export type TStateAuth = {
+  value: string;
+  err: string;
+  loading: boolean;
+  focus: boolean;
+  view: boolean;
+};
