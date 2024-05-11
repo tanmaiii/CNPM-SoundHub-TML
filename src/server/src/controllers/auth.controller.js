@@ -180,9 +180,44 @@ export const verifyAccount = async (req, res) => {
   }
 };
 
+//Thay đổi mật khẩu
+export const changePassword = async (req, res) => {
+  try {
+    const token = req.headers["authorization"];
+    const userInfo = await jwtService.verifyToken(token);
+
+    const { password, passwordOld } = req.body;
+
+    User.findById(userInfo.id, (err, user) => {
+      if (err) return res.status(401).json({ conflictError: err });
+      if (!user) {
+        const conflictError = "User does not exist";
+        return res.status(401).json({ conflictError });
+      }
+
+      bcrypt.compare(passwordOld, user.password, (err, result) => {
+        if (err) return res.status(401).json({ conflictError: err });
+        if (result == false) {
+          return res.status(401).json({ conflictError: "Wrong password!" });
+        }
+        const salt = bcrypt.genSaltSync(10);
+        const hashedPassword = bcrypt.hashSync(password, salt);
+
+        User.update(user.id, { password: hashedPassword }, (err, result) => {
+          if (err) return res.status(401).json({ conflictError: err });
+          return res.json("Update password successfully!");
+        });
+      });
+    });
+  } catch (error) {
+    res.status(401).json(error);
+  }
+};
+
 export default {
   signup,
   signin,
   sendVerifyAccount,
   verifyAccount,
+  changePassword
 };

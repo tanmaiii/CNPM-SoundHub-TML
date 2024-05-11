@@ -13,19 +13,7 @@ const User = function (user) {
   this.email_verified_at = user.email_verified_at;
 };
 
-User.create = (newUser, result) => {
-  db.query(`insert into users set ? , id = ?`, [newUser, uuidv4()], (err, res) => {
-    if (err) {
-      console.log("ERROR", err);
-      result(err, null);
-      return;
-    }
-    console.log("CREATE USER : ", { res });
-    result(null, { id: res.insertId, ...newUser });
-  });
-};
-
-//kiểm tra email đã được dùng chưa
+//Tìm kiếm người dùng bằng email
 User.findByEmail = (email, result) => {
   db.query(`SELECT * from users WHERE email = ?`, email, (err, res) => {
     if (err) {
@@ -40,7 +28,34 @@ User.findByEmail = (email, result) => {
   });
 };
 
-User.verify = function (email, result) {
+//Tìm kiếm người dùng bằng id
+User.findById = (id, result) => {
+  db.query(`SELECT * from users WHERE id = ?`, id, (err, user) => {
+    if (err) {
+      result(err, null);
+      return;
+    }
+    if (user.length) {
+      result(null, user[0]);
+      return;
+    }
+    result(null, null);
+  });
+};
+
+User.create = (newUser, result) => {
+  db.query(`insert into users set ? , id = ?`, [newUser, uuidv4()], (err, res) => {
+    if (err) {
+      console.log("ERROR", err);
+      result(err, null);
+      return;
+    }
+    console.log("CREATE USER : ", { res });
+    result(null, { id: res.insertId, ...newUser });
+  });
+};
+
+User.verify = (email, result) => {
   db.query(
     `UPDATE users SET email_verified_at = ? WHERE email = ?`,
     [new Date(), email],
@@ -57,6 +72,24 @@ User.verify = function (email, result) {
       result(null, { email: email });
     }
   );
+};
+
+User.update = (userId, newUser, result) => {
+  User.findById(userId, (err, res) => {
+    if (err) {
+      result(err, null);
+      return;
+    }
+    db.query(`update users set ? where id = ?`, [userId, newUser], (err, res) => {
+      if (err) {
+        console.log("ERROR", err);
+        result(err, null);
+        return;
+      }
+      console.log("UPDATE USER : ", { res });
+      result(null, { id: userId, ...newUser });
+    });
+  });
 };
 
 export default User;
