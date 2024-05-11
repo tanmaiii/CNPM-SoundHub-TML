@@ -67,4 +67,28 @@ export default class authValidation {
       code: Joi.number().required(),
     }),
   };
+  static changePassword = {
+    body: Joi.object().keys({
+      password: Joi.string()
+        .min(6)
+        .max(50)
+        .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,30}$/)
+        .required()
+        .messages({
+          "string.string": `Password must be a string!`,
+          "string.min": `Password at least 6 characters!`,
+          "string.max": `Password maximum 50 characters`,
+          "object.regex": `Your password must have a minimum of 6 characters and include numbers, letters and special characters (!$@%)`,
+          "string.empty": `Password is empty!`,
+          "any.required": `Password is a required field!`,
+        }),
+      passwordOld: Joi.string().min(6).max(50).required().messages({
+        "string.string": `Password must be a string!`,
+        "string.min": `Password at least 6 characters!`,
+        "string.max": `Password maximum 50 characters`,
+        "string.empty": `Password is empty!`,
+        "any.required": `Password is a required field!`,
+      }),
+    }),
+  };
 }

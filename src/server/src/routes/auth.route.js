@@ -16,4 +16,6 @@ router.post(
   validate(authValidation.verifyAccount),
   authController.verifyAccount
 );
+
+router.post("/change-password", validate(authValidation.changePassword),authController.changePassword);
 export default router;
