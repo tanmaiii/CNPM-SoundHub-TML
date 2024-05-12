@@ -67,6 +67,14 @@ export default class authValidation {
       code: Joi.number().required(),
     }),
   };
+
+  static verifyForgotPassword = {
+    body: Joi.object().keys({
+      email: Joi.string().email().max(255).empty().required(),
+      code: Joi.number().required(),
+    }),
+  };
+
   static changePassword = {
     body: Joi.object().keys({
       password: Joi.string()

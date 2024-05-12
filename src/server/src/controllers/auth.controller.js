@@ -89,6 +89,40 @@ export const signin = async (req, res) => {
   }
 };
 
+//Thay đổi mật khẩu
+export const changePassword = async (req, res) => {
+  try {
+    const token = req.headers["authorization"];
+    const userInfo = await jwtService.verifyToken(token);
+
+    const { password, passwordOld } = req.body;
+
+    User.findById(userInfo.id, (err, user) => {
+      if (err) return res.status(401).json({ conflictError: err });
+      if (!user) {
+        const conflictError = "User does not exist";
+        return res.status(401).json({ conflictError });
+      }
+
+      bcrypt.compare(passwordOld, user.password, (err, result) => {
+        if (err) return res.status(401).json({ conflictError: err });
+        if (result == false) {
+          return res.status(401).json({ conflictError: "Wrong password!" });
+        }
+        const salt = bcrypt.genSaltSync(10);
+        const hashedPassword = bcrypt.hashSync(password, salt);
+
+        User.update(user.id, { password: hashedPassword }, (err, result) => {
+          if (err) return res.status(401).json({ conflictError: err });
+          return res.json("Update password successfully!");
+        });
+      });
+    });
+  } catch (error) {
+    res.status(401).json(error);
+  }
+};
+
 // Gửi xác thực tài khoản
 export const sendVerifyAccount = async (req, res) => {
   try {
@@ -98,9 +132,9 @@ export const sendVerifyAccount = async (req, res) => {
         return res.status(401).json({ conflictError: "Email not found!" });
       }
 
-      if (user.email_verified_at !== null) {
-        return res.status(401).json({ conflictError: "Account has been verified!" });
-      }
+      // if (user.email_verified_at !== null) {
+      //   return res.status(401).json({ conflictError: "Account has been verified!" });
+      // }
 
       // const token = jwtService.generateToken({ email }, { expiresIn: "1h" });
       const code = randomstring.generate({
@@ -180,44 +214,48 @@ export const verifyAccount = async (req, res) => {
   }
 };
 
-//Thay đổi mật khẩu
-export const changePassword = async (req, res) => {
+export const verifyPassword = async (req, res) => {
   try {
-    const token = req.headers["authorization"];
-    const userInfo = await jwtService.verifyToken(token);
+    const { code, email } = req.body;
 
-    const { password, passwordOld } = req.body;
+    User.findByEmail(email, async (err, user) => {
+      if (!user || err) {
+        return res.status(404).json({ conflictError: "User not found !" });
+      } else {
+        VerifyCode.find(user.id, (err, verify) => {
+          if (err || !verify) {
+            return res.status(500).json({ conflictError: "Error during request processing" });
+          }
 
-    User.findById(userInfo.id, (err, user) => {
-      if (err) return res.status(401).json({ conflictError: err });
-      if (!user) {
-        const conflictError = "User does not exist";
-        return res.status(401).json({ conflictError });
-      }
+          const codeSql = verify.code;
 
-      bcrypt.compare(passwordOld, user.password, (err, result) => {
-        if (err) return res.status(401).json({ conflictError: err });
-        if (result == false) {
-          return res.status(401).json({ conflictError: "Wrong password!" });
-        }
-        const salt = bcrypt.genSaltSync(10);
-        const hashedPassword = bcrypt.hashSync(password, salt);
+          console.log(codeSql, parseInt(code));
 
-        User.update(user.id, { password: hashedPassword }, (err, result) => {
-          if (err) return res.status(401).json({ conflictError: err });
-          return res.json("Update password successfully!");
+          if (parseInt(codeSql) === parseInt(code)) {
+            const resetPasswordToken = jwtService.generateToken(
+              { id: user.id },
+              { expiresIn: "1h" }
+            );
+
+            VerifyCode.delete(user.id, (err, result) => {});
+            return res.json({ success: true, data: { resetPasswordToken: resetPasswordToken } });
+          } else {
+            return res.status(500).json({ conflictError: "Code does not match" });
+          }
         });
-      });
+      }
     });
+
   } catch (error) {
-    res.status(401).json(error);
+    return res.status(500).json(error);
   }
 };
 
 export default {
   signup,
   signin,
+  changePassword,
   sendVerifyAccount,
   verifyAccount,
-  changePassword
+  verifyPassword,
 };
