@@ -80,7 +80,7 @@ User.update = (userId, newUser, result) => {
       result(err, null);
       return;
     }
-    db.query(`update users set ? where id = ?`, [userId, newUser], (err, res) => {
+    db.query(`update users set ? where id = ?`, [newUser , userId], (err, res) => {
       if (err) {
         console.log("ERROR", err);
         result(err, null);
