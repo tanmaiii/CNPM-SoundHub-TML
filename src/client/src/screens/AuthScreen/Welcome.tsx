@@ -52,7 +52,10 @@ const WelcomeScreen = (props: WelcomeScreenProps) => {
               <Text style={styles.titleLogin}>Login</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.buttonGoogle}>
+            <TouchableOpacity
+              style={styles.buttonGoogle}
+              onPress={() => navigate.navigate("ResetPassword", { token: "123123" })}
+            >
               <Image source={IMAGES.GOOGLE} style={{ width: 30, height: 30 }} />
               <Text style={styles.titleGoogle}>Google</Text>
             </TouchableOpacity>
