@@ -23,6 +23,12 @@ const authApi = {
     const url = "auth/verify-account";
     return axiosClient.post(url, { email, code });
   },
+  resetPassword(resetPasswordToken: string, password: string) {
+    const url = "auth/reset-password";
+    return axiosClient.post(`${url}?token=${resetPasswordToken}`, {
+      password,
+    });
+  },
 };
 
 export default authApi;

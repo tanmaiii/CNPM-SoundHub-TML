@@ -1,6 +1,7 @@
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 
+
 export type RootStackParamList = {
   Tab: undefined;
   Auth: undefined;
@@ -26,6 +27,7 @@ export type RootStackParamList = {
   Welcome: undefined;
   Verify: undefined;
   ForgetPassword: undefined;
+  ResetPassword: { token: string };
 };
 
 export type NavigationProp = StackNavigationProp<RootStackParamList>;

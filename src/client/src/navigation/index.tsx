@@ -10,6 +10,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "../screens/HomeScreen";
 import WelcomeScreen from "../screens/AuthScreen/Welcome";
 import SignupScreen from "../screens/AuthScreen/Signup";
+import ResetPassword from "../screens/AuthScreen/ResetPassword";
 
 import { RootStackParamList } from "./TStack";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
@@ -26,6 +27,7 @@ export const StackAuth = () => {
     >
       <Stack.Screen name={"Welcome"} component={WelcomeScreen} />
       <Stack.Screen name={"Signup"} component={SignupScreen} />
+      <Stack.Screen name={"ResetPassword"} component={ResetPassword} />
     </Stack.Navigator>
   );
 };
