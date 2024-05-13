@@ -2,7 +2,6 @@ import * as React from "react";
 import {
   Text,
   View,
-  StyleSheet,
   Image,
   TouchableOpacity,
   ActivityIndicator,
@@ -12,7 +11,6 @@ import {
   Platform,
   TouchableHighlight,
   KeyboardAvoidingView,
-  Alert,
   ScrollView,
   TextInput,
 } from "react-native";
@@ -110,9 +108,11 @@ const ResetPassword = (props: ResetPasswordProps) => {
 
     setLoading(true);
 
+    console.log({token});
+    
+
     try {
       const res = token && (await authApi.resetPassword(token, stateRePassword.value));
-
       res && setToastMessage("Refresh password successfully");
       setLoading(false);
       navigation.navigate("Login");

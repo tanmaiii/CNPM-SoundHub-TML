@@ -5,6 +5,7 @@ import TabNavigator, { StackAuth } from "./src/navigation";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { NavigationContainer, useLinkTo } from "@react-navigation/native";
 import { ToastContextProvider } from "./src/context/ToastContext";
+import { AuthContextProvider, useAuth } from "./src/context/AuthContext";
 import { useFonts } from "expo-font";
 import { IMAGES } from "./src/constants";
 
@@ -31,17 +32,19 @@ export default function App() {
 
   return (
     <QueryClientProvider client={client}>
-      <NavigationContainer>
-        <ToastContextProvider>
-          <Layout />
-        </ToastContextProvider>
-      </NavigationContainer>
+      <AuthContextProvider>
+        <NavigationContainer>
+          <ToastContextProvider>
+            <Layout />
+          </ToastContextProvider>
+        </NavigationContainer>
+      </AuthContextProvider>
     </QueryClientProvider>
   );
 }
 
 export const Layout = () => {
-  const currentUser = false;
+  const { currentUser } = useAuth();
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       {currentUser ? (

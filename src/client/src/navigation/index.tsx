@@ -11,9 +11,11 @@ import HomeScreen from "../screens/HomeScreen";
 import WelcomeScreen from "../screens/AuthScreen/Welcome";
 import SignupScreen from "../screens/AuthScreen/Signup";
 import ResetPassword from "../screens/AuthScreen/ResetPassword";
+import LoginScreen from "../screens/AuthScreen/Login";
 
 import { RootStackParamList } from "./TStack";
 import { faHouse } from "@fortawesome/free-solid-svg-icons";
+import ForgetPassword from "../screens/AuthScreen/ForgetPassword";
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -27,6 +29,8 @@ export const StackAuth = () => {
     >
       <Stack.Screen name={"Welcome"} component={WelcomeScreen} />
       <Stack.Screen name={"Signup"} component={SignupScreen} />
+      <Stack.Screen name={"Login"} component={LoginScreen} />
+      <Stack.Screen name={"ForgetPassword"} component={ForgetPassword} />
       <Stack.Screen name={"ResetPassword"} component={ResetPassword} />
     </Stack.Navigator>
   );

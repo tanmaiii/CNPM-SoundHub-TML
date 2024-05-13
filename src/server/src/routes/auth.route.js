@@ -6,6 +6,14 @@ import validate from "../middlewares/validate.js";
 
 router.post("/signup", validate(authValidation.signup), authController.signup);
 router.post("/signin", validate(authValidation.signin), authController.signin);
+router.get("/signout", authController.signout);
+
+router.post(
+  "/reset-password",
+  validate(authValidation.resetPassword),
+  authController.resetPassword
+);
+
 router.post(
   "/change-password",
   validate(authValidation.changePassword),

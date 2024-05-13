@@ -1,4 +1,4 @@
-import { TUser, ResLoginApi } from "./../../types";
+import { TUser, ResLoginApi, ResVerifyForgotPassword } from "./../../types";
 import axiosClient from "../../configs/axios/axiosClient";
 
 //: Promise<ResLoginApi>
@@ -18,6 +18,10 @@ const authApi = {
   sendVerifyAccount(email: string) {
     const url = "auth/send-verify-account";
     return axiosClient.post(url, { email });
+  },
+  verifyForgotPassword(email: string, code: string): Promise<ResVerifyForgotPassword> {
+    const url = "auth/verify-forgot-password";
+    return axiosClient.post(url, { email, code });
   },
   verifyAccount(email: string, code: string) {
     const url = "auth/verify-account";
