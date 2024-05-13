@@ -44,6 +44,7 @@ export const AuthContextProvider = ({ children }: Props) => {
 
   const signup = async (name: string, email: string, password: string) => {
     const res = await authApi.signup(name, email, password);
+    return res;
   };
 
   const logout = async () => {
@@ -52,25 +53,25 @@ export const AuthContextProvider = ({ children }: Props) => {
     await authApi.signout();
   };
 
-  const getInfo = async () => {
-    setLoadingAuth(true);
-    try {
-      const res = await userApi.getMe(token);
-      res ? setCurrentUser(res) : setCurrentUser(null);
-      console.log("Get Me", res);
-      setLoadingAuth(false);
-      return res;
-    } catch (error) {
-      console.log("Get Me :", error.response.data);
-    }
-    setLoadingAuth(false);
-    return null;
-  };
+  // const getInfo = async () => {
+  //   setLoadingAuth(true);
+  //   try {
+  //     const res = await userApi.getMe(token);
+  //     res ? setCurrentUser(res) : setCurrentUser(null);
+  //     console.log("Get Me", res);
+  //     setLoadingAuth(false);
+  //     return res;
+  //   } catch (error) {
+  //     console.log("Get Me :", error.response.data);
+  //   }
+  //   setLoadingAuth(false);
+  //   return null;
+  // };
 
-  const { data, isLoading } = useQuery({
-    queryKey: ["currentUser"],
-    queryFn: getInfo,
-  });
+  // const { data, isLoading } = useQuery({
+  //   queryKey: ["currentUser"],
+  //   queryFn: getInfo,
+  // });
 
   useEffect(() => {
     const getUserStorage = async () => {

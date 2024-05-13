@@ -89,6 +89,31 @@ export const signin = async (req, res) => {
   }
 };
 
+export const signout = (req, res) => {
+  res.clearCookie("accessToken");
+  res.end();
+};
+
+//Tạo mới mật khẩu
+export const resetPassword = async (req, res) => {
+  try {
+    const salt = bcrypt.genSaltSync(10);
+    const hashedPassword = bcrypt.hashSync(req.body.password, salt);
+
+    const token = req.query.token;
+    const userInfo = await jwtService.verifyToken(token);
+
+    User.update(userInfo.id, { password: hashedPassword }, (err, result) => {
+      if (err) {
+        return res.status(401).json(err);
+      }
+      return res.json("Update successfully !");
+    });
+  } catch (error) {
+    res.status(401).json(error);
+  }
+};
+
 //Thay đổi mật khẩu
 export const changePassword = async (req, res) => {
   try {
@@ -245,7 +270,6 @@ export const verifyPassword = async (req, res) => {
         });
       }
     });
-
   } catch (error) {
     return res.status(500).json(error);
   }
@@ -254,6 +278,8 @@ export const verifyPassword = async (req, res) => {
 export default {
   signup,
   signin,
+  signout,
+  resetPassword,
   changePassword,
   sendVerifyAccount,
   verifyAccount,

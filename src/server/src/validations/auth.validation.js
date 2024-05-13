@@ -44,7 +44,7 @@ export default class authValidation {
       password: Joi.string()
         .min(6)
         .max(50)
-        .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,30}$/)
+        // .regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,30}$/)
         .required()
         .messages({
           "string.string": `Password must be a string!`,
@@ -97,6 +97,28 @@ export default class authValidation {
         "string.empty": `Password is empty!`,
         "any.required": `Password is a required field!`,
       }),
+    }),
+  };
+
+  static resetPassword = {
+    query: Joi.object().keys({
+      token: Joi.string().required(),
+    }),
+    body: Joi.object().keys({
+      password: Joi.string()
+        .min(6)
+        .max(50)
+        // .pattern(
+        //   new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{3,30}$")
+        // )
+        .required()
+        .messages({
+          "string.string": `Password must be a string!`,
+          "string.min": `Password at least 6 characters!`,
+          "string.max": `Password maximum 50 characters`,
+          "string.empty": `Password is empty!`,
+          "any.required": `Password is a required field!`,
+        }),
     }),
   };
 }

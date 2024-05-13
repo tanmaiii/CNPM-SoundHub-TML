@@ -12,6 +12,7 @@ import {
   Keyboard,
   ImageBackground,
   Platform,
+  TouchableHighlight,
 } from "react-native";
 import IMAGES from "../../constants/images";
 import { COLORS, FONTFAMILY, FONTSIZE, SPACING } from "../../theme/theme";
@@ -28,7 +29,6 @@ import {
   faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { NavigationProp } from "../../navigation/TStack";
-import { TouchableHighlight } from "react-native-gesture-handler";
 import Constants from "expo-constants";
 import { TStateAuth } from "../../types";
 import { WINDOW_HEIGHT } from "../../utils";
@@ -83,8 +83,8 @@ const LoginScreen = (props: LoginScreenProps) => {
 
   const HandlePress = async () => {
     setErr("");
-    setLoading(true);
     if (stateEmail.value !== "" && statePassword.value !== "") {
+      setLoading(true);
       try {
         await login(stateEmail.value, statePassword.value);
         setLoading(false);

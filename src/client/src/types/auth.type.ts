@@ -17,3 +17,10 @@ export type TStateAuth = {
   focus: boolean;
   view: boolean;
 };
+
+export type ResVerifyForgotPassword = {
+  success: boolean;
+  data: {
+    resetPasswordToken: string;
+  };
+};
