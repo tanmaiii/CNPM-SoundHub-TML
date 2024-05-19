@@ -30,7 +30,7 @@ import {
   faLock,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { NavigationProp } from "../../navigation/TStack";
+import { NavigationProp } from "../../navigators/TStack";
 import Constants from "expo-constants";
 const statusBarHeight = Constants.statusBarHeight;
 import VerifyScreen from "./Verify";

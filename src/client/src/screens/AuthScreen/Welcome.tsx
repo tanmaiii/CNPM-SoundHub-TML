@@ -4,7 +4,7 @@ import { COLORS, FONTFAMILY, FONTSIZE, SPACING } from "../../theme/theme";
 import { IMAGES } from "../../constants";
 import styles from "./style";
 import { useNavigation } from "@react-navigation/native";
-import { NavigationProp } from "../../navigation/TStack";
+import { NavigationProp } from "../../navigators/TStack";
 import { WINDOW_HEIGHT } from "../../utils";
 
 interface WelcomeScreenProps {}

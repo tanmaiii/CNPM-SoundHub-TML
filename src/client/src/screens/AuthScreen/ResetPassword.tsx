@@ -26,7 +26,7 @@ import {
   faLock,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { NavigationProp, RootRouteProps } from "../../navigation/TStack";
+import { NavigationProp, RootRouteProps } from "../../navigators/TStack";
 import { REGEX, WINDOW_HEIGHT } from "../../utils";
 import Constants from "expo-constants";
 import { authApi } from "../../apis";

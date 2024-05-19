@@ -28,7 +28,7 @@ import {
   faCircleExclamation,
   faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
-import { NavigationProp } from "../../navigation/TStack";
+import { NavigationProp } from "../../navigators/TStack";
 import Constants from "expo-constants";
 const statusBarHeight = Constants.statusBarHeight;
 import { REGEX, WINDOW_HEIGHT } from "../../utils/index";
