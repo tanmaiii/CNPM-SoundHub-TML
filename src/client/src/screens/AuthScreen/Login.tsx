@@ -28,7 +28,7 @@ import {
   faEye,
   faChevronLeft,
 } from "@fortawesome/free-solid-svg-icons";
-import { NavigationProp } from "../../navigation/TStack";
+import { NavigationProp } from "../../navigators/TStack";
 import Constants from "expo-constants";
 import { TStateAuth } from "../../types";
 import { WINDOW_HEIGHT } from "../../utils";

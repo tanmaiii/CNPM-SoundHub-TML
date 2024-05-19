@@ -1,15 +1,16 @@
 import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 
-
 export type RootStackParamList = {
-  Tab: undefined;
+  Main: undefined;
+
   Auth: undefined;
 
   Home: undefined;
-  Search: undefined;
   Library: undefined;
   User: undefined;
+
+  Search: undefined;
 
   UserEditProfile: undefined;
   UpdateItem: { type: string };
@@ -36,4 +37,3 @@ export type RootRouteProps<RouteName extends keyof RootStackParamList> = RoutePr
   RootStackParamList,
   RouteName
 >;
-
