@@ -19,6 +19,25 @@ export const getAll = async (req, res) => {
   }
 };
 
+export const getAllSongs = async (req, res) => {
+  try {
+    const token = req.headers["authorization"];
+    const userInfo = await jwtService.verifyToken(token);
+
+    Search.findSongs(userInfo.id, req.query, (err, data) => {
+      if (!data) {
+        return res.status(401).json({ conflictError: "Not found" });
+      } else {
+        console.log("GET ALL SONGS", data.data);
+        return res.json(data);
+      }
+    });
+  } catch (error) {
+    return res.status(400).json(error);
+  }
+};
+
 export default {
   getAll,
+  getAllSongs
 };
