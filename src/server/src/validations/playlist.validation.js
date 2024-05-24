@@ -23,6 +23,57 @@ const querySchema = {
 };
 
 export default class playlistValidator {
+  static getPlaylist = {
+    params: Joi.object().keys({
+      playlistId: Joi.string().min(0).max(36).required(),
+    }),
+  };
+
+  static createPlaylist = {
+    ...bodySchema,
+  };
+
+  static updatePlaylist = {
+    ...bodySchema,
+  };
+
+  static deletePlaylist = {
+    params: Joi.object().keys({
+      playlistId: Joi.string().min(0).max(36).required(),
+    }),
+  };
+
+  static destroyPlaylist = {
+    params: Joi.object().keys({
+      playlistId: Joi.string().min(0).max(36).required(),
+    }),
+  };
+
+  static restorePlaylist = {
+    params: Joi.object().keys({
+      playlistId: Joi.string().min(0).max(36).required(),
+    }),
+  };
+
+  static getAllPlaylist = {
+    ...querySchema,
+  };
+
+  static getAllPlaylistByMe = {
+    ...querySchema,
+  };
+
+  static getAllPlaylistByUser = {
+    ...querySchema,
+    params: Joi.object().keys({
+      userId: Joi.string().min(0).max(36).required(),
+    }),
+  };
+
+  static getAllFavoritesByUser = {
+    ...querySchema,
+  };
+
   static checkLike = {
     params: Joi.object().keys({
       playlistId: Joi.string().min(0).max(36).required(),
@@ -38,6 +89,27 @@ export default class playlistValidator {
   static unLike = {
     params: Joi.object().keys({
       playlistId: Joi.string().min(0).max(36).required(),
+    }),
+  };
+
+  static checkSong = {
+    body: Joi.object().keys({
+      playlist_id: Joi.string().min(0).max(36).required(),
+      song_id: Joi.string().min(0).max(36).required(),
+    }),
+  };
+
+  static addSong = {
+    body: Joi.object().keys({
+      playlist_id: Joi.string().min(0).max(36).required(),
+      song_id: Joi.string().min(0).max(36).required(),
+    }),
+  };
+
+  static unAddSong = {
+    body: Joi.object().keys({
+      playlist_id: Joi.string().min(0).max(36).required(),
+      song_id: Joi.string().min(0).max(36).required(),
     }),
   };
 }
