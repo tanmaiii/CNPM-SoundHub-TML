@@ -41,12 +41,12 @@ import { NavigationProp, RootRouteProps } from "../../navigators/TStack";
 import apiConfig from "../../configs/axios/apiConfig";
 import { songApi, userApi } from "../../apis";
 import { useAuth } from "../../context/AuthContext";
-import { usePlaying } from "../../context/PlayingContext";
+// import { usePlaying } from "../../context/PlayingContext";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import ArtistItem from "../../components/ArtistItem";
 import moment from "moment";
 import SongDetailSkeleton from "./SongDetailSkeleton";
-import { useAudio } from "../../context/AudioContext";
+// import { useAudio } from "../../context/AudioContext";
 
 const AnimatedLinearGradient = Animated.createAnimatedComponent(LinearGradient);
 
@@ -61,9 +61,9 @@ const SongDetail = (props: SongDetailProps) => {
   const { currentUser } = useAuth();
   const songId = route.params.songId;
   const { token } = useAuth();
-  const { setOpenBarSong, changeSongPlaying, songIdPlaying } = usePlaying();
-  const { isPlaying, playSound, stopSound } = useAudio();
-  
+  // const { setOpenBarSong, changeSongPlaying, songIdPlaying } = usePlaying();
+  // const { isPlaying, playSound, stopSound } = useAudio();
+
   const queryClient = useQueryClient();
 
   const headerAnimation = {
@@ -153,13 +153,13 @@ const SongDetail = (props: SongDetailProps) => {
   };
 
   const handlePlay = () => {
-    if (songId === songIdPlaying && isPlaying) {
-      stopSound();
-    } else {
-      song && changeSongPlaying(song?.id);
-      playSound();
-      setOpenBarSong(true);
-    }
+    // if (songId === songIdPlaying && isPlaying) {
+    //   stopSound();
+    // } else {
+    //   song && changeSongPlaying(song?.id);
+    //   playSound();
+    //   setOpenBarSong(true);
+    // }
   };
 
   return (
@@ -271,7 +271,7 @@ const SongDetail = (props: SongDetailProps) => {
                   </TouchableOpacity>
 
                   <TouchableOpacity style={styles.button} onPress={() => handlePlay()}>
-                    {isPlaying && songId === songIdPlaying ? (
+                    {true ? (
                       <>
                         <FontAwesomeIcon
                           icon={faPause}

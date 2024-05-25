@@ -33,9 +33,7 @@ export const AuthContextProvider = ({ children }: Props) => {
   const queryClient = useQueryClient();
 
   const login = async (email: string, password: string) => {
-    setLoadingAuth(true);
     const res = await authApi.signin(email, password);
-    setLoadingAuth(false);
     if (res) {
       setCurrentUser(res.data);
       setToken(res.token);
