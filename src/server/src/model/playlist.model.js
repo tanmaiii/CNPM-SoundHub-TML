@@ -521,7 +521,6 @@ Playlist.addSong = async (playlistId, songId, userId, result) => {
               result(insertErr, null);
               return;
             }
-            // Trả về thông tin bài hát đã được thêm vào danh sách yêu thích
             result(null, { playlist_id: playlistId, song_id: songId });
           }
         );
@@ -575,7 +574,6 @@ Playlist.unAddSong = (playlistId, songId, userId, result) => {
               result(insertErr, null);
               return;
             }
-            // Trả về thông tin bài hát đã được thêm vào danh sách yêu thích
             result(null, { playlist_id: playlistId, song_id: songId });
           }
         );

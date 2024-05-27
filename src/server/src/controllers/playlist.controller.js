@@ -290,7 +290,6 @@ export const addSongPlaylist = async (req, res) => {
         const conflictError = err;
         return res.status(401).json({ conflictError });
       } else {
-        console.log("ADD SONG", data);
         return res.json(data);
       }
     });
@@ -309,7 +308,6 @@ export const unAddSongPlaylist = async (req, res) => {
         const conflictError = err;
         return res.status(401).json({ conflictError });
       } else {
-        console.log("UN ADD SONG", data);
         return res.json(data);
       }
     });
