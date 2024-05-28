@@ -23,8 +23,6 @@ import { useAuth } from "../../context/AuthContext";
 import { NavigationProp } from "../../navigators/TStack";
 import { BORDERRADIUS, COLORS, FONTFAMILY, FONTSIZE, SPACING } from "../../theme/theme";
 import { TSong } from "../../types";
-import CustomBottomSheet from "../CustomBottomSheet";
-// import AddSongToPlaylist from "./AddSongToPlaylist";
 
 interface ModalSongProps {
   song: TSong;
