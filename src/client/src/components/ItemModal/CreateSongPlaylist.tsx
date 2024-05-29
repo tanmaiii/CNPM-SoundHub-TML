@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import * as React from "react";
 import { Text, View, StyleSheet, Modal } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { BORDERRADIUS, COLORS, FONTFAMILY, FONTSIZE, SPACING } from "../../theme/theme";
+import { BORDERRADIUS, COLORS, FONTFAMILY, FONTSIZE, SPACING } from "@/theme/theme";
 import { faCompactDisc, faMusic } from "@fortawesome/free-solid-svg-icons";
 
 interface CreateSongPlaylistProps {
