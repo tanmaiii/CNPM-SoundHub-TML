@@ -9,7 +9,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 interface CustomInputProps {
   onSubmit: (string) => void;
   focus?: boolean;
-  clearValue: boolean;
+  clearValue?: boolean;
   value: string;
   onSubmitEditing?: (string) => void;
   textInputRef: React.RefObject<TextInput>;

@@ -17,6 +17,26 @@ const playlistApi = {
       },
     });
   },
+  getMe(
+    token: string,
+    page: number,
+    limit: number,
+    q?: string,
+    sort?: string
+  ): Promise<ListResponse<TPlaylist>> {
+    const url = "playlist/me";
+    return axiosClient.get(url, {
+      params: {
+        page: page,
+        limit: limit,
+        sortBy: sort,
+        q: q,
+      },
+      headers: {
+        authorization: token,
+      },
+    });
+  },
   createPlaylist(
     token: string,
     title: string,
@@ -103,6 +123,33 @@ const playlistApi = {
         },
       }
     );
+  },
+  addSong(playlistId: string, songId: string, token: string) {
+    const url = "playlist/song/";
+    return axiosClient.post(
+      url,
+      {
+        song_id: songId,
+        playlist_id: playlistId,
+      },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+  },
+  removeSong(playlistId: string, songId: string, token: string) {
+    const url = "playlist/song/";
+    return axiosClient.delete(url, {
+      data: {
+        song_id: songId,
+        playlist_id: playlistId,
+      },
+      headers: {
+        authorization: token,
+      },
+    });
   },
   updateSong(token: string, playlistId: string, songs: { id: string; num_song: number }[]) {
     const url = "playlist/song/";

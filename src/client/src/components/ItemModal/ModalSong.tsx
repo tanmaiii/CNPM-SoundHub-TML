@@ -1,3 +1,10 @@
+import { songApi } from "@/apis";
+import apiConfig from "@/configs/axios/apiConfig";
+import { IMAGES } from "@/constants";
+import { useAuth } from "@/context/AuthContext";
+import { NavigationProp } from "@/navigators/TStack";
+import { BORDERRADIUS, COLORS, FONTFAMILY, FONTSIZE, SPACING } from "@/theme/theme";
+import { TSong } from "@/types";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import { faHeart as faHeartRegular } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -16,13 +23,6 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import * as React from "react";
 import { Image, Pressable, Share, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { TouchableHighlight } from "react-native-gesture-handler";
-import { songApi } from "../../apis";
-import apiConfig from "../../configs/axios/apiConfig";
-import { IMAGES } from "../../constants";
-import { useAuth } from "../../context/AuthContext";
-import { NavigationProp } from "../../navigators/TStack";
-import { BORDERRADIUS, COLORS, FONTFAMILY, FONTSIZE, SPACING } from "../../theme/theme";
-import { TSong } from "../../types";
 
 interface ModalSongProps {
   song: TSong;
@@ -33,9 +33,7 @@ interface ModalSongProps {
 
 const ModalSong = ({ song, setOpenModal, size = 1, playlistId = null }: ModalSongProps) => {
   const [isOpenModal, setIsOpenModal] = React.useState<boolean>(false);
-  const [loading, setLoding] = React.useState<boolean>(false);
   const navigation = useNavigation<NavigationProp>();
-  const [heightModal, setHeightModal] = React.useState(200);
   const { token, currentUser } = useAuth();
   const queryClient = useQueryClient();
 
