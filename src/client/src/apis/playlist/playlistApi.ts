@@ -104,6 +104,20 @@ const playlistApi = {
       }
     );
   },
+  updateSong(token: string, playlistId: string, songs: { id: string; num_song: number }[]) {
+    const url = "playlist/song/";
+    return axiosClient.put(
+      url + playlistId,
+      {
+        songs: songs,
+      },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    );
+  },
 };
 
 export default playlistApi;
