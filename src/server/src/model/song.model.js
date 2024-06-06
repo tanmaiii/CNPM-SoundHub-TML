@@ -77,7 +77,7 @@ Song.findById = (songId, userId, result) => {
       }
 
       if (!song || !song.length) {
-        result("Không tìm thấy !", null);
+        result("Không tìm thấy bài hát !", null);
         return;
       }
 
