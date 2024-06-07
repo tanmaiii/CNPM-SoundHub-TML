@@ -5,7 +5,6 @@ import * as React from "react";
 import { useRef } from "react";
 import {
   Animated,
-  Dimensions,
   FlatList,
   Image,
   SafeAreaView,
@@ -55,7 +54,7 @@ const SearchScreen = (props: SearchScreenProps) => {
 
   const getAllGenre = async () => {
     try {
-      const res = await genreApi.getAll();
+      const res = await genreApi.getAll(1, 100);
       res && setGenres(res.data);
       return res.data;
     } catch (error) {
@@ -64,7 +63,7 @@ const SearchScreen = (props: SearchScreenProps) => {
     return;
   };
 
-  const {} = useQuery({
+  const { refetch: refetchGenres } = useQuery({
     queryKey: ["genres"],
     queryFn: getAllGenre,
   });

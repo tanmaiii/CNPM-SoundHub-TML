@@ -11,8 +11,11 @@ import { COLORS, FONTFAMILY } from "./src/theme/theme";
 
 import { AuthContextProvider } from "./src/context/AuthContext";
 import { ToastContextProvider } from "./src/context/ToastContext";
-import AppRouter from "./src/navigators/AppRouter";
-import { WINDOW_HEIGHT, WINDOW_WIDTH } from "./src/utils";
+import AppRouter from "@/navigators/AppRouter";
+import { WINDOW_HEIGHT, WINDOW_WIDTH } from "@/utils";
+import { BarSongContextProvider } from "@/context/BarSongContext";
+import { AudioContextProvider } from "@/context/AudioContext";
+import PlayingCard from "@/components/PlayingCard";
 
 
 const client = new QueryClient();
@@ -21,12 +24,12 @@ export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
 
   let [fontsLoaded] = useFonts({
-    "Roboto-Black": require("./src/assets/fonts/Roboto-Black.ttf"),
-    "Roboto-Bold": require("./src/assets/fonts/Roboto-Bold.ttf"),
-    "Roboto-Light": require("./src/assets/fonts/Roboto-Light.ttf"),
-    "Roboto-Medium": require("./src/assets/fonts/Roboto-Medium.ttf"),
-    "Roboto-Regular": require("./src/assets/fonts/Roboto-Regular.ttf"),
-    "Roboto-Thin": require("./src/assets/fonts/Roboto-Thin.ttf"),
+    "Roboto-Black": require("@/assets/fonts/Roboto-Black.ttf"),
+    "Roboto-Bold": require("@/assets/fonts/Roboto-Bold.ttf"),
+    "Roboto-Light": require("@/assets/fonts/Roboto-Light.ttf"),
+    "Roboto-Medium": require("@/assets/fonts/Roboto-Medium.ttf"),
+    "Roboto-Regular": require("@/assets/fonts/Roboto-Regular.ttf"),
+    "Roboto-Thin": require("@/assets/fonts/Roboto-Thin.ttf"),
   });
 
   useEffect(() => {
@@ -47,13 +50,18 @@ export default function App() {
       <NavigationContainer>
         <ToastContextProvider>
           <AuthContextProvider>
+            <BarSongContextProvider>
+              <AudioContextProvider>
                 <GestureHandlerRootView style={{ flex: 1 }}>
                   <BottomSheetModalProvider>
                     <View style={styles.container}>
+                      <PlayingCard />
                       <AppRouter />
                     </View>
                   </BottomSheetModalProvider>
                 </GestureHandlerRootView>
+              </AudioContextProvider>
+            </BarSongContextProvider>
           </AuthContextProvider>
         </ToastContextProvider>
       </NavigationContainer>

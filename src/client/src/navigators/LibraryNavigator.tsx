@@ -2,28 +2,31 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { RootStackParamList } from "./TStack";
-import HomeScreen from "@/screens/HomeScreen";
+import SearchScreen from "@/screens/SearchScreen";
+import LibraryScreen from "@/screens/LibraryScreen";
+
 import PlaylistDetail from "@/screens/PlaylistDetail";
 import SongDetail from "@/screens/SongDetail";
 import ArtistDetail from "@/screens/ArtistDetail";
 import ListSongScreen from "@/screens/ListSongScreen";
-import ListSongLikeScreen from "@/screens/ListSongLikeScreen";
 import ListPlaylistScreen from "@/screens/ListPlaylistScreen";
 import UserAccount from "@/screens/UserAccount";
 import EditProfile from "@/screens/UserAccount/EditProfile";
 import UpdateItem from "@/screens/UserAccount/UpdateItem";
-const Stack = createNativeStackNavigator<RootStackParamList>();
+import ListSongLikeScreen from "@/screens/ListSongLikeScreen";
+interface LibraryNavigatorProps {}
 
-interface HomeNavigatorProps {}
+const LibraryNavigator = (props: LibraryNavigatorProps) => {
+  const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const HomeNavigator = (props: HomeNavigatorProps) => {
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Library" component={LibraryScreen} />
+
       <Stack.Screen name="Artist" component={ArtistDetail} />
       <Stack.Screen name="Song" component={SongDetail} />
       <Stack.Screen name="Playlist" component={PlaylistDetail} />
@@ -37,7 +40,7 @@ const HomeNavigator = (props: HomeNavigatorProps) => {
   );
 };
 
-export default HomeNavigator;
+export default LibraryNavigator;
 
 const styles = StyleSheet.create({
   container: {},

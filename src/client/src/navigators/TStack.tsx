@@ -2,6 +2,11 @@ import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 
 export type RootStackParamList = {
+  HomeNavigator: undefined;
+  SearchNavigator: undefined;
+  LibaryNavigator: undefined;
+  UserNavigator: undefined;
+
   Main: undefined;
 
   Auth: undefined;
@@ -11,6 +16,7 @@ export type RootStackParamList = {
   User: undefined;
 
   Search: undefined;
+  Genre: { genreId: string };
 
   UserEditProfile: undefined;
   UpdateItem: { type: string };
@@ -21,7 +27,7 @@ export type RootStackParamList = {
 
   ListSong: { userId: string };
   ListPlaylist: { userId: string };
-  ListSongLike: { userId: string };
+  ListSongLike: null;
 
   Login: undefined;
   Signup: undefined;
