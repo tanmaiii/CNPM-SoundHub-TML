@@ -1,4 +1,3 @@
-import * as React from "react";
 import {
   faHouse,
   faMagnifyingGlass,
@@ -8,12 +7,14 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import * as React from "react";
 import { StyleSheet, Text, View } from "react-native";
-import HomeScreen from "../screens/HomeScreen";
 import { COLORS, FONTFAMILY, HEIGHT, SPACING } from "../theme/theme";
-import { RootStackParamList } from "./TStack";
-import { WINDOW_WIDTH } from "../utils";
 import HomeNavigator from "./HomeNavigator";
+import LibraryNavigator from "./LibraryNavigator";
+import SearchNavigator from "./SearchNavigator";
+import { RootStackParamList } from "./TStack";
+import UserNavigator from "./UserNavigator";
 
 interface TabNavigatorProps {}
 
@@ -36,7 +37,7 @@ const TabNavigator = (props: TabNavigatorProps) => {
       }}
     >
       <Tab.Screen
-        name={"Home"}
+        name={"HomeNavigator"}
         component={HomeNavigator}
         options={{
           tabBarShowLabel: false,
@@ -54,6 +55,78 @@ const TabNavigator = (props: TabNavigatorProps) => {
                 ]}
               >
                 Home
+              </Text>
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={"SearchNavigator"}
+        component={SearchNavigator}
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: ({ focused }) => (
+            <View style={styles.activeBackground}>
+              <FontAwesomeIcon
+                icon={faMagnifyingGlass}
+                size={20}
+                color={focused ? COLORS.Primary : COLORS.White2}
+              />
+              <Text
+                style={[
+                  styles.title,
+                  focused ? { color: COLORS.Primary } : { color: COLORS.White2 },
+                ]}
+              >
+                Search
+              </Text>
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={"LibaryNavigator"}
+        component={LibraryNavigator}
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: ({ focused }) => (
+            <View style={styles.activeBackground}>
+              <FontAwesomeIcon
+                icon={faRecordVinyl}
+                size={20}
+                color={focused ? COLORS.Primary : COLORS.White2}
+              />
+              <Text
+                style={[
+                  styles.title,
+                  focused ? { color: COLORS.Primary } : { color: COLORS.White2 },
+                ]}
+              >
+                Library
+              </Text>
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name={"UserNavigator"}
+        component={UserNavigator}
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: ({ focused }) => (
+            <View style={styles.activeBackground}>
+              <FontAwesomeIcon
+                icon={faUser}
+                size={20}
+                color={focused ? COLORS.Primary : COLORS.White2}
+              />
+              <Text
+                style={[
+                  styles.title,
+                  focused ? { color: COLORS.Primary } : { color: COLORS.White2 },
+                ]}
+              >
+                User
               </Text>
             </View>
           ),

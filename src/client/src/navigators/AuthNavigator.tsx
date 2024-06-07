@@ -1,12 +1,12 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import { StyleSheet } from "react-native";
-import ForgetPassword from "../screens/AuthScreen/ForgetPassword";
-import LoginScreen from "../screens/AuthScreen/Login";
-import ResetPassword from "../screens/AuthScreen/ResetPassword";
-import SignupScreen from "../screens/AuthScreen/Signup";
-import VerifyScreen from "../screens/AuthScreen/Verify";
-import WelcomeScreen from "../screens/AuthScreen/Welcome";
+import ForgetPassword from "@/screens/AuthScreen/ForgetPassword";
+import LoginScreen from "@/screens/AuthScreen/Login";
+import ResetPassword from "@/screens/AuthScreen/ResetPassword";
+import SignupScreen from "@/screens/AuthScreen/Signup";
+import VerifyScreen from "@/screens/AuthScreen/Verify";
+import WelcomeScreen from "@/screens/AuthScreen/Welcome";
 import { RootStackParamList } from "./TStack";
 
 interface AuthNavigatorProps {}

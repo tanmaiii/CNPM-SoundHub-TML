@@ -2,7 +2,6 @@ import axios from "axios";
 import queryString from "query-string";
 
 import apiConfig from "./apiConfig";
-import { useContext } from "react";
 
 const axiosClient = axios.create({
   baseURL: apiConfig.baseUrl,

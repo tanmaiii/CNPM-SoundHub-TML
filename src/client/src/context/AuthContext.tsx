@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { authApi, userApi } from "../apis";
-import { TUser } from "../types/index";
+import { TUser } from "@/types/index";
+import { authApi, userApi } from "@/apis";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 
@@ -8,9 +8,9 @@ import { useQuery, useQueryClient } from "@tanstack/react-query";
 interface IAuthContext {
   currentUser: TUser | null;
   setCurrentUser: (user: TUser) => void;
-  signup: (name: string, email: string, password: string) => void;
   logout: () => void;
   login: (email: string, password: string) => void;
+  signup: (name: string, email: string, password: string) => void;
   token: string | null;
   loadingAuth: boolean;
 }
@@ -30,7 +30,18 @@ export const AuthContextProvider = ({ children }: Props) => {
   const [currentUser, setCurrentUser] = useState<TUser | null>(null);
   const [token, setToken] = useState<string | null>(null);
   const [loadingAuth, setLoadingAuth] = useState<boolean>(false);
-  const queryClient = useQueryClient();
+
+  const logout = async () => {
+    setCurrentUser(null);
+    setToken(null);
+
+    AsyncStorage.setItem("token", null);
+    AsyncStorage.setItem("user", null);
+
+    console.log("Logout");
+
+    await authApi.signout();
+  };
 
   const login = async (email: string, password: string) => {
     const res = await authApi.signin(email, password);
@@ -45,31 +56,27 @@ export const AuthContextProvider = ({ children }: Props) => {
     return res;
   };
 
-  const logout = async () => {
-    setCurrentUser(null);
-    setToken(null);
-    await authApi.signout();
+  const getInfo = async () => {
+    if (!token) return null;
+    setLoadingAuth(true);
+    try {
+      const res = await userApi.getMe(token);
+      res && setCurrentUser(res);
+      console.log("Get Me", res);
+      setLoadingAuth(false);
+      return res;
+    } catch (error) {
+      setCurrentUser(null);
+      console.log("ERROR GET ME  :", error.response.data);
+    }
+    setLoadingAuth(false);
+    return null;
   };
 
-  // const getInfo = async () => {
-  //   setLoadingAuth(true);
-  //   try {
-  //     const res = await userApi.getMe(token);
-  //     res ? setCurrentUser(res) : setCurrentUser(null);
-  //     console.log("Get Me", res);
-  //     setLoadingAuth(false);
-  //     return res;
-  //   } catch (error) {
-  //     console.log("Get Me :", error.response.data);
-  //   }
-  //   setLoadingAuth(false);
-  //   return null;
-  // };
-
-  // const { data, isLoading } = useQuery({
-  //   queryKey: ["currentUser"],
-  //   queryFn: getInfo,
-  // });
+  const { data, isLoading } = useQuery({
+    queryKey: ["currentUser"],
+    queryFn: getInfo,
+  });
 
   useEffect(() => {
     const getUserStorage = async () => {
@@ -111,9 +118,9 @@ export const AuthContextProvider = ({ children }: Props) => {
     currentUser,
     setCurrentUser,
     token,
-    signup,
     logout,
     login,
+    signup,
     loadingAuth,
   };
 
