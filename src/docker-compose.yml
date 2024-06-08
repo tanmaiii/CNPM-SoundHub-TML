@@ -1,0 +1,29 @@
+version: '1.0'
+
+services:
+  # Backend
+  server-app:
+    build: 
+      context: ./server
+      dockerfile: ./Dockerfile
+    container_name: server-app-music-cnpm
+    ports:
+    - "8008:8008"
+    environment:
+    - APP_NAME=SOUND HUB
+    - DB_HOST=db
+    - DB_USER=root
+    - DB_PASS=123456789
+    - DB_NAME=music
+    - FRONTEND_URL=http://localhost:8081
+    - MAIL_NAME=jobquestofficial@gmail.com
+    - MAIL_PASSWORD=
+    - MY_SECRET=tanmai
+    networks:
+    - music-app-cnpm-network
+
+volumes:
+  data-app:
+
+networks:
+ music-app-cnpm-network:
