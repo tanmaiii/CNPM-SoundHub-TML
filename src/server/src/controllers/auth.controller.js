@@ -275,6 +275,82 @@ export const verifyPassword = async (req, res) => {
   }
 };
 
+export const sendVerifyEmail = async (req, res) => {
+  try {
+    const token = req.headers["authorization"];
+    const userInfo = await jwtService.verifyToken(token);
+    const email = req.body.email;
+
+    User.findById(userInfo.id, async (err, user) => {
+      if (!user || err) {
+        return res.status(404).json({ conflictError: "User not found !" });
+      } else {
+        const code = randomstring.generate({
+          length: 4,
+          charset: "numeric",
+        });
+
+        const verificationResult = await emailService.sendVerificationEmail(email, code);
+
+        if (!verificationResult.success)
+          return res.json({
+            success: false,
+            data: "Đã xảy ra lỗi khi gửi email xác minh",
+          });
+
+        VerifyCode.create(user.id, code, (err, result) => {
+          if (err) {
+            VerifyCode.delete(user.id, (err, result) => {});
+            return res.status(401).json({ conflictError: err });
+          }
+          console.log("✉️ Send verification email : " + email + " - code : " + code);
+
+          return res.json({
+            success: true,
+            data: "Email verification sent successfully !",
+            // code: code,
+          });
+        });
+      }
+    });
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
+export const verifyEmail = async (req, res) => {
+  try {
+    const token = req.headers["authorization"];
+    const userInfo = await jwtService.verifyToken(token);
+    const { code, email } = req.body;
+
+    User.findById(userInfo.id, async (err, user) => {
+      if (!user || err) {
+        return res.status(404).json({ conflictError: "User not found !" });
+      } else {
+        VerifyCode.find(user.id, (err, verify) => {
+          if (err || !verify) {
+            return res.status(500).json({ conflictError: "Error during request processing" });
+          }
+
+          const codeSql = verify.code;
+
+          console.log(codeSql, parseInt(code));
+
+          if (parseInt(codeSql) === parseInt(code)) {
+            VerifyCode.delete(user.id, (err, result) => {});
+            return res.json({ success: true, data: "Verify email successful!" });
+          } else {
+            return res.status(500).json({ conflictError: "Code does not match" });
+          }
+        });
+      }
+    });
+  } catch (error) {
+    return res.status(500).json({ conflictError: "Error during request processing" });
+  }
+};
+
 export default {
   signup,
   signin,
@@ -284,4 +360,7 @@ export default {
   sendVerifyAccount,
   verifyAccount,
   verifyPassword,
+
+  sendVerifyEmail,
+  verifyEmail,
 };

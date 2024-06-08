@@ -6,10 +6,6 @@ import { useAuth } from "./AuthContext";
 import { apiConfig } from "@/configs";
 import { useToast } from "./ToastContext";
 
-export function useAudio() {
-  return useContext(AudioContex)!;
-}
-
 type AudioContextType = {
   sound: Audio.Sound | null;
   songIdPlaying: string | null;
@@ -28,11 +24,16 @@ type AudioContextType = {
   queue: string[];
 };
 
+const AudioContex = createContext<AudioContextType | null>(null);
+
+export function useAudio() {
+  return useContext(AudioContex)!;
+}
+
+
 type Props = {
   children: React.ReactNode;
 };
-
-const AudioContex = createContext<AudioContextType | null>(null);
 
 export const AudioContextProvider = ({ children }: Props) => {
   const [songIdPlaying, setSongIdPlaying] = useState<string | null>(null);

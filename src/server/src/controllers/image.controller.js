@@ -28,7 +28,7 @@ export const uploadImage = async (req, res, next) => {
   }
 };
 
-export const deleteMp3 = async (req, res) => {
+export const deleteImage = async (req, res) => {
   try {
     const token = req.headers["authorization"];
     const userInfo = await jwtService.verifyToken(token);

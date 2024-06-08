@@ -5,17 +5,15 @@ import { Skeleton } from "moti/skeleton";
 
 const SkeletonCommonProps = {
   colorMode: "dark",
-  transition: {
-    type: "timing",
-    duration: 1500,
-  },
+  type: "timing",
+  duration: 1500,
   backgroundColor: COLORS.Black2,
 } as const;
 
 const CategoryHeaderSkeleton = () => {
   return (
     <View style={styles.container}>
-      <Skeleton {...SkeletonCommonProps} width={100} height={24} radius={4}/>
+      <Skeleton {...SkeletonCommonProps} width={100} height={24} radius={4} />
     </View>
   );
 };
