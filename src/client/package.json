@@ -28,7 +28,7 @@
     "expo-status-bar": "~1.12.1",
     "lottie-react-native": "^6.7.2",
     "moment": "^2.30.1",
-    "moti": "^0.29.0",
+    "moti": "^0.26.1",
     "numeral": "^2.0.6",
     "query-string": "^9.0.0",
     "react": "18.2.0",

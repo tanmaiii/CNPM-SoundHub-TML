@@ -1,16 +1,16 @@
 import * as React from "react";
-import { Text, View, StyleSheet, TouchableOpacity, Image } from "react-native";
-import { TSong } from "../../types/song.type";
+import { Image, Text, TouchableOpacity, View } from "react-native";
 import IMAGES from "../../constants/images";
+import { TSong } from "../../types/song.type";
 
-import styles from "./style";
-import { COLORS, SPACING } from "../../theme/theme";
-import { useLinkTo, useNavigation } from "@react-navigation/native";
-import { NavigationProp } from "../../navigators/TStack";
-import apiConfig from "../../configs/axios/apiConfig";
-import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { useNavigation } from "@react-navigation/native";
+import apiConfig from "../../configs/axios/apiConfig";
+import { NavigationProp } from "../../navigators/TStack";
+import { COLORS } from "../../theme/theme";
 import SongCardSkeleton from "./SongCardSkeleton";
+import styles from "./style";
 
 interface SongCardProps {
   loading?: boolean;

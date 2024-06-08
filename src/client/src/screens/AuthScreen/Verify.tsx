@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, Image, TouchableOpacity, ActivityIndicator } fr
 import styles from "./style";
 import { IMAGES } from "../../constants";
 import { COLORS, FONTFAMILY, FONTSIZE, SPACING } from "../../theme/theme";
-import { OTPInput } from "../../components/OTPInput/OTPInput";
+import { OTPInput } from "../../components/OTPInput";
 import { authApi } from "../../apis";
 
 interface VeridyScreenProps {

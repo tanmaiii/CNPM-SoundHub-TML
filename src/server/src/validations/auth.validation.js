@@ -32,6 +32,7 @@ export default class authValidation {
       }),
     }),
   };
+
   static signin = {
     body: Joi.object().keys({
       email: Joi.string().email().max(255).empty().required().messages({
@@ -56,6 +57,7 @@ export default class authValidation {
         }),
     }),
   };
+
   static sendVerifyAccount = {
     body: Joi.object().keys({
       email: Joi.string().email().max(255).empty().required(),
@@ -119,6 +121,30 @@ export default class authValidation {
           "string.empty": `Password is empty!`,
           "any.required": `Password is a required field!`,
         }),
+    }),
+  };
+
+  static sendVerify = {
+    body: Joi.object().keys({
+      email: Joi.string().email().max(255).empty().required().messages({
+        "string.string": `Email must be a string!`,
+        "string.email": `Invalid email!`,
+        "string.max": `Email is too long!`,
+        "string.empty": `Email is empty!`,
+        "any.required": `Email is a required field!`,
+      }),
+    }),
+  };
+  static verifyEmail = {
+    body: Joi.object().keys({
+      email: Joi.string().email().max(255).empty().required().messages({
+        "string.string": `Email must be a string!`,
+        "string.email": `Invalid email!`,
+        "string.max": `Email is too long!`,
+        "string.empty": `Email is empty!`,
+        "any.required": `Email is a required field!`,
+      }),
+      code: Joi.string().min(4).max(4).required(),
     }),
   };
 }

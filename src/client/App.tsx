@@ -3,20 +3,20 @@ import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar, StyleSheet, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
+import PlayingCard from "@/components/PlayingCard";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useFonts } from "expo-font";
 import React, { useEffect, useState } from "react";
-import { COLORS, FONTFAMILY } from "./src/theme/theme";
+import { COLORS, FONTFAMILY } from "@/theme/theme";
 
-import { AuthContextProvider } from "./src/context/AuthContext";
-import { ToastContextProvider } from "./src/context/ToastContext";
-import AppRouter from "@/navigators/AppRouter";
-import { WINDOW_HEIGHT, WINDOW_WIDTH } from "@/utils";
-import { BarSongContextProvider } from "@/context/BarSongContext";
 import { AudioContextProvider } from "@/context/AudioContext";
-import PlayingCard from "@/components/PlayingCard";
-
+import { AuthContextProvider } from "@/context/AuthContext";
+import { BarSongContextProvider } from "@/context/BarSongContext";
+import { ToastContextProvider } from "@/context/ToastContext";
+import AppRouter from "@/navigators/AppRouter";
+import SplashScreen from "@/screens/SplashScreen";
+import { WINDOW_HEIGHT, WINDOW_WIDTH } from "@/utils";
 
 const client = new QueryClient();
 
@@ -41,7 +41,7 @@ export default function App() {
   }, [fontsLoaded]);
 
   if (!fontLoaded) {
-    return <></>
+    return <SplashScreen />;
   }
 
   return (
