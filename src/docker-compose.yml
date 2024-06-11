@@ -1,29 +1,49 @@
-version: '1.0'
+version: '3.4'
 
 services:
-  # Backend
-  server-app:
+  mysqldb:
+    build: 
+      context: ./mysql
+      dockerfile: ./Dockerfile
+    restart: unless-stopped
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - auth-networks
+    ports:
+      - 3307:3306
+
+  server:
+    depends_on:
+      - mysqldb
     build: 
       context: ./server
       dockerfile: ./Dockerfile
-    container_name: server-app-music-cnpm
-    ports:
-    - "8008:8008"
+    restart: unless-stopped
     environment:
-    - APP_NAME=SOUND HUB
-    - DB_HOST=db
-    - DB_USER=root
-    - DB_PASS=123456789
-    - DB_NAME=music
-    - FRONTEND_URL=http://localhost:8081
-    - MAIL_NAME=jobquestofficial@gmail.com
-    - MAIL_PASSWORD=
-    - MY_SECRET=tanmai
+      - DB_HOST=mysqldb
+      - DB_USERNAME=root
+      - DB_PASSWORD=123
+      - DB_DATABASE=music
+      - PORT=8000
     networks:
-    - music-app-cnpm-network
+      - auth-networks
+    command: npm start
 
-volumes:
-  data-app:
+  nginx:
+    depends_on:
+      - server
+    build:
+      context: ./nginx
+      dockerfile: ./Dockerfile 
+    container_name: nginx 
+    networks:
+      - auth-networks
+    ports:
+      - 8888:80
 
 networks:
- music-app-cnpm-network:
+  auth-networks:
+
+volumes:
+  db:
