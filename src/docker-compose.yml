@@ -1,0 +1,49 @@
+version: '3.4'
+
+services:
+  mysqldb:
+    build: 
+      context: ./mysql
+      dockerfile: ./Dockerfile
+    restart: unless-stopped
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - auth-networks
+    ports:
+      - 3307:3306
+
+  server:
+    depends_on:
+      - mysqldb
+    build: 
+      context: ./server
+      dockerfile: ./Dockerfile
+    restart: unless-stopped
+    environment:
+      - DB_HOST=mysqldb
+      - DB_USERNAME=root
+      - DB_PASSWORD=123
+      - DB_DATABASE=music
+      - PORT=8000
+    networks:
+      - auth-networks
+    command: npm start
+
+  nginx:
+    depends_on:
+      - server
+    build:
+      context: ./nginx
+      dockerfile: ./Dockerfile 
+    container_name: nginx 
+    networks:
+      - auth-networks
+    ports:
+      - 8888:80
+
+networks:
+  auth-networks:
+
+volumes:
+  db:
