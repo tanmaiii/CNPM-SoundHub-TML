@@ -6,7 +6,7 @@ SoundHub là một nền tảng chia sẻ âm nhạc nơi người dùng có th�
 ## Cấu trúc dự án
 
 ```
-├── figma/ # Các file thiết kế Figma
+├── mockups/ # Các file thiết kế Figma
 
 ├── README.md # File mô tả dự án này
 
@@ -26,7 +26,8 @@ SoundHub là một nền tảng chia sẻ âm nhạc nơi người dùng có th�
 
   ├── docker-compose.yml # File docker-compose
 
-├── thesis/  # Các tài liệu liên quan đến tài liệu
+├── thesis/  # Các tài liệu của dự án
+├── docs/  # Các tài liệu về báo cáo và thuyết trình
 ```
 ## Mô tả chi tiết
 
