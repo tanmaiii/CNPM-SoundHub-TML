@@ -51,8 +51,9 @@ Dự án sử dụng Docker để đóng gói và triển khai. Cấu hình Dock
 ## Cách chạy dự án
 
 Để chạy dự án, bạn cần cài đặt Docker và Docker Compose. Sau đó, chạy lệnh sau:
-> cd src
-> docker-compose  up --build
-
+```
+cd src
+docker-compose  up --build
+```
 Dự án sẽ được chạy tại  
 >`http://localhost:8000`.
